@@ -11,6 +11,7 @@
         2. 程序流程控制指令
         3. 对象操作指令，包括方法调用指令
         4. 算术运算以及类型转换指令
+        
 2. Java 字节码执行的过程
 
     字节码在执行的时候有两个区，一个本地变量区（LocalVariable）与一个栈区(Stack)，本地变量加载到栈区通过定义的指令运行，运行后的结果回写至本地变量表，循环往复，如下图。
@@ -207,4 +208,85 @@ SourceFile: "Counter.java"
 
 ```
 
+## ClassLoader
+
+* ClassLoader的作用、类别与加载路径。
+
+    1. ClassLoader作用
+        ClassLoader的作用是将JVM字节码加载到JVM虚拟机。
+    
+    2. ClassLoader类别 
+        1. 启动类加载器(BootstrapClassLoader) 
+        2. 扩展类加载器(ExtClassLoader)
+        3. 应用类加载器(AppClassLoader)
+  
+    3. 指定ClassLoader去那加载
+        * 放到 JDK 的 lib/ext 下，或者-Djava.ext.dirs
+        * java –cp/classpath 或者 class 文件放到当前路径
+        * 通过反射的方法去获取URLClassLoader对象,在调用添加addURL添加加载路径
+        
+* 自定义ClassLoader
+``` 
+  package com.izhengyin.java000.week01;
+  
+  import java.io.File;
+  import java.io.FileInputStream;
+  import java.io.IOException;
+  
+  /**
+   * @author zhengyin zhengyinit@outlook.com
+   * Create on 2020/10/21 9:05 下午
+   */
+  public class CustomClassLoaderTest{
+      public static void main(String[] args){
+          MyClassLoader classLoader = new MyClassLoader("/Users/zhengyin/project/my/JAVA-000/Week_01/Hello.class");
+          try {
+              classLoader.findClass("Hello").newInstance();
+          }catch (ClassNotFoundException e){
+              e.printStackTrace();
+          }catch (InstantiationException e){
+              e.printStackTrace();
+          }catch (IllegalAccessException e){
+              e.printStackTrace();
+          }
+      }
+  
+      private static class MyClassLoader extends ClassLoader {
+          private final String fileName;
+          public MyClassLoader(String fileName){
+              this.fileName = fileName;
+          }
+          @Override
+          protected Class<?> findClass(String name) throws ClassNotFoundException {
+              try {
+                  byte[] bytes = readFile(this.fileName);
+                  return defineClass(name,bytes,0,bytes.length);
+              }catch (IOException e){
+                  throw new ClassNotFoundException(e.getMessage(),e);
+              }
+          }
+  
+          private byte[] readFile(String fileName) throws IOException{
+              File file = new File(fileName);
+              byte[] bytes = new byte[(int)file.length()];
+              FileInputStream in = null;
+              try {
+                  in = new FileInputStream(file);
+                  in.read(bytes);
+              } finally {
+                  if(in != null){
+                      in.close();
+                  }
+              }
+              return bytes;
+          }
+      }
+  }
+  
+  ```   
+## 画一张图，展示 Xmx、Xms、Xmn、Meta、DirectMemory、Xss 这些内存参数的 关系
+
+![Plus](img/memory-model.png)
+            
+    
    
