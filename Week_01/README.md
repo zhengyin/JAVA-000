@@ -131,6 +131,7 @@ Constant pool:
     descriptor: I
     flags: ACC_PRIVATE, ACC_STATIC, ACC_FINAL
     ConstantValue: int 5
+        //私有的，静态的，最终的，常量值为5的NUM
 
   public final int num;
     descriptor: I
@@ -158,13 +159,21 @@ Constant pool:
     Code:
       stack=3, locals=3, args_size=1
          0: new           #3                  // class Counter
+            //new指令在java堆上为Counter对象分配内存空间，并将地址压入操作数栈顶；
          3: dup
+            //dup指令为复制操作数栈顶值，并将其压入栈顶，也就是说此时操作数栈上有连续相同的两个对象地址； 原理可以查看这里 https://www.cnblogs.com/CLAYJJ/archive/2017/10/20/7698035.html
          4: iconst_5
+            //Load常量NUM
          5: invokespecial #4                  // Method "<init>":(I)V
+            //调用 Counter 构造方法
          8: astore_1
+            //存储 Counter 引用
          9: aload_1
+           //加载  Counter 引用
         10: invokevirtual #5                  // Method forCount:()I
+            //调用 counter forCount 
         13: istore_2
+            //存储结果
         14: return
       LineNumberTable:
         line 8: 0
@@ -178,18 +187,23 @@ Constant pool:
       stack=2, locals=3, args_size=1
          0: iconst_0
          1: istore_1
+             // int counter = 0;
          2: iconst_0
          3: istore_2
+             // for (int i = 0
          4: iload_2
          5: iconst_5
          6: if_icmpge     19
+            //加载 i 与 NUM (5) 比较 , 如果满足条件走下面的流程，不满足走 19
          9: iload_1
         10: iload_2
         11: iadd
         12: istore_1
         13: iinc          2, 1
         16: goto          4
+            //自增 i , 然后从回到 4 的流程，加载 i 与 NUM 在进行比较
         19: iload_1
+            // 加载 counter 的值返回
         20: ireturn
       LineNumberTable:
         line 12: 0
