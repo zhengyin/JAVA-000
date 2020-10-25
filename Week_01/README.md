@@ -298,9 +298,30 @@ SourceFile: "Counter.java"
   }
   
   ```   
-## 画一张图，展示 Xmx、Xms、Xmn、Meta、DirectMemory、Xss 这些内存参数的 关系
+## Java内存结构
 
 ![Plus](img/memory-model.png)
+
+* JAVA进程占用内存首先分为两部分
+    1. JVM内存
+    2. 堆外内存（直接向操作系统申请的内存）[-XX:MaxDirectMemorySize=size 指定堆外内存大小]
+* JVM内存可以划分为4个部分的内存
+    1. 堆内存  [-Xmx , -Xms 分别指定最大堆大小和初始堆大小]
+    2. 非堆内存
+    3. 线程栈内存 [-Xss 指定线程栈大小，JAVA5以后默认是1M]
+    4. JVM自身内存
+* 堆内存(Heap)包含两个部分 
+    1. 新生代 [-Xmn 指定内存大小，G1垃圾回收模型不指定][-XX:SurvivorRatio=n 指定 Eden , s0, s1 的比例]
+        * Eden-Space [-Xmn / (n + 2) * n , 比如 n = 6 , -Xmn = 1000 , Eden = 1000 / (6+2) * 6 = 750]
+        * Survivor01 [(-Xmn - Eden) / 2 , s1 , s2 相等]
+        * Survivor02 
+    2. 老年代 [-Xmx 减去 -Xmn 得到老年代的大小]
+* 非堆内(Non-Heap)存包含三个部分
+    1. metaspace [Java7 -XX:MaxPermSize=size] [Java8 默认无限大]
+    2. Compressed Class Space
+    3. Code Cache
+    
+
             
     
    
