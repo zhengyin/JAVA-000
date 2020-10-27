@@ -1,0 +1,15 @@
+Java HotSpot(TM) 64-Bit Server VM (25.65-b01) for bsd-amd64 JRE (1.8.0_65-b17), built on Oct  6 2015 15:36:46 by "java_re" with gcc 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.11.00)
+Memory: 4k page, physical 16777216k(945892k free)
+
+/proc/meminfo:
+
+CommandLine flags: -XX:InitialHeapSize=536870912 -XX:MaxHeapSize=536870912 -XX:MaxNewSize=268435456 -XX:NewSize=268435456 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC 
+Heap
+ PSYoungGen      total 229376K, used 15729K [0x00000007b0000000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 196608K, 8% used [0x00000007b0000000,0x00000007b0f5c4d0,0x00000007bc000000)
+  from space 32768K, 0% used [0x00000007be000000,0x00000007be000000,0x00000007c0000000)
+  to   space 32768K, 0% used [0x00000007bc000000,0x00000007bc000000,0x00000007be000000)
+ ParOldGen       total 262144K, used 0K [0x00000007a0000000, 0x00000007b0000000, 0x00000007b0000000)
+  object space 262144K, 0% used [0x00000007a0000000,0x00000007a0000000,0x00000007b0000000)
+ Metaspace       used 2631K, capacity 4486K, committed 4864K, reserved 1056768K
+  class space    used 290K, capacity 386K, committed 512K, reserved 1048576K
