@@ -203,6 +203,25 @@ Heap
 G1 日志太大查看 [G1](g1.log)
 
 
+## 压测 与观察 gateway demo
+
+``` 
+java -jar -Xmx256m -Xms256m -Xmn128  gateway-server-0.0.1-SNAPSHOT.jar
+```
+
+``` 
+~ wrk -c 5 -t 5 -d 60s http://127.0.0.1:8088/api/hello
+Running 1m test @ http://127.0.0.1:8088/api/hello
+  5 threads and 5 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.42ms    2.96ms  97.51ms   95.76%
+    Req/Sec     1.20k   255.49     2.01k    82.68%
+  359885 requests in 1.00m, 42.97MB read
+Requests/sec:   5988.74
+Transfer/sec:    732.16KB
+```
+ ![gateway1](img/gateway1.png)
+
 
 ## okHttp,httpClient,WebClient 测试
 ```  
