@@ -1,4 +1,4 @@
-# Java 同步异步、阻塞非阻塞、BIO,NIO,AIO,IO多路复用、reactor线程模型、Netty、reactor-netty、WebFlux
+# Java 同步异步、阻塞非阻塞、BIO,NIO,AIO,IO多路复用、reactor线程模型、Netty、reactor 响应式编程 ,reactor-netty、WebFlux
 
 > 几年以前从PHP转Java，刚把Java基础语法学完，就从一本《Netty权威指南》开始了我的Java第一个线上应用，一个基于Netty的消息订阅服务，现在这个服务已经被Spring Boot WebFlux 重构了，现在回看当初写的代码，会心一笑，真是初出茅庐不怕虎。
 > 这次借着课程从学Netty的机会，将之前学的知识重新整理一遍，理清思路，加深印象。
@@ -394,4 +394,47 @@
     }
 
     ```
-    
+
+## Reactor 线程模型
+
+Reactor 模型的特点
+
+1. 事件驱动
+2. 可以处理一个或多个输入源
+3. 通过多路复用将请求的事件分发给对应的处理器处理
+
+从高新能的定义回看 Reactor 模型
+
+* 高新能定义
+    * 高并发用户
+    * 高吞吐量
+    * 低延迟
+
+1. 单线程模型，只有一个线程负责接收、处理请求，不符合高并发用户
+2. 多线程模型，只有一个线程负责接收，不能很好利用现代多核CPU的资源，出现大量并发用户的时候，忙不过来，无法hold住请求的流量，不符合高并发用户要求
+3. 主从线程模型，能够hold住高并发的请求，而吞吐量与低延迟还需要考 Worker 线程处理的处理，Worker线程通常还需要监听 SocketChannel 的状态变化，因此切勿阻塞。
+
+> 在Netty中，因为负责接收请求的BossGroup与负责进行处理请求的WorkerGroup都不能阻塞，为了减少线程调度，降低CPU上下文切换，因此通常设置我CPU核心数或CPU核心的倍数。
+
+## Netty 
+
+![Netty 运行原理](img/netty-reactor.png)
+
+
+* 从原理上来讲，Netty使用Java Nio 库，是一个通过IO多路复用同步非阻塞的网络框架，在不同操作系统上会选用不同select的实现。
+
+    * EPoll(Linux) kqueue (FreeBsd) Iocp (Windows)
+
+* 从功能上来讲，Netty为开发者屏蔽了常见的网络协议底层实现的细节，提供大量的编码、解码工具类，对于后端开发，无论是网络协议开发，RPC调用都有不错的支持
+
+* 从使用上里讲，开发者可以在Netty之上，通过提供的功能，编写业务的Handle完成业务逻辑开发，同时也可以实现自己的编码解码器，自定义私有协议栈，RPC框架等。
+
+
+## reactor 响应式编程 ，Reactor Netty ,Webflux
+
+ reactor 响应式编程 与  reactor 线程模型 名字一样，但是性质大不相同。reactor 面向流，类似于Java Stream 但是提供了比Java Stream 更多的API实现，Reactor 通过一系列操作符来串联起业务，是一个用于JVM的完全非阻塞的响应式编程框架。
+ reactor 的特性和前面提到Netty Handle 结合就有了 Reactor-netty ，Reactor-netty 提供了非租塞的 Http client 与 Servers 实现。
+ Spring 在Reactor-netty 的基础上实现了 Webflux 响应式的 Spring Web 框架，并且提供了支持响应式的Redis、jdbc等支持。
+ 
+ 
+> 老师你好，因为时间关系，另外就是之前写过一个自定义协议的Sub服务，因此没有写金卫老师预留的作业，只对课程做了总结。
