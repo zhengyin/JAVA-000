@@ -20,7 +20,7 @@
     
     如下面的例子
     
-   ``` 
+``` 
     public class Test1{
         public static void main(String[] args){
             int a = 5;
@@ -30,9 +30,11 @@
             int e = d * c;
         }
     } 
-   ```
+```
+   
    执行 ： javac Test1.java && javap -v Test1.class 得到字节码
-   ``` 
+   
+``` 
     Code:
          stack=2, locals=6, args_size=1
             0: iconst_5
@@ -60,7 +62,7 @@
            15: istore        5
                 // 回写到本地变量
            17: return
-   ```
+```
 
 3. 通过一个循环的例子来看Java bytecode 
 
