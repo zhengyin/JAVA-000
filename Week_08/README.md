@@ -207,9 +207,9 @@ com.atomikos.icatch.max_actives = 50
 源码地址： https://github.com/zhengyin/spring-boot-example/tree/master/spring-boot-example-atomikos
 
 
-### ShardingSphere XA 事务 (待解决) 请问老师，这部分有没有什么参考资料？
+### ShardingSphere XA 事务 (待解决) 
 
-> 抛出异常后事务没有回滚，单独测试atomikos是OK的，怀疑是数据源 Datasource 需要配置未 XaDatasource，但是还未找到shardingsphere的如何配置XaDatasource的API。
+> 抛出异常后事务没有回滚，单独测试atomikos是OK的，怀疑是数据源 Datasource 需要配置未 XaDatasource，还未找到shardingsphere的如何配置XaDatasource的API。
 
 
 ``` 
