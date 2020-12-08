@@ -83,6 +83,7 @@ spring.datasource.order_2.password=zhengyin
     }
 ```
 
+源码地址： https://github.com/zhengyin/spring-boot-example/tree/master/spring-boot-example-shardingsphere-jdbc
 
 ## (必做)基于hmily TCC或ShardingSphere的Atomikos XA实现一个简单的分布式 事务应用demo(二选一)，提交到github。
 
