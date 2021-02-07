@@ -47,7 +47,7 @@
   <strong>Java进阶训练营-第0期 毕业总结-脑图</strong>
 </p>
 
-> 图片比较大（14M），可以下载后查看
+> 图片比较大（17M），可以下载后查看
 
 [点击下载](https://github.com/zhengyin/JAVA-000/raw/main/Java000%E6%80%BB%E7%BB%93-%E9%83%91%E5%8D%B0.png)
 

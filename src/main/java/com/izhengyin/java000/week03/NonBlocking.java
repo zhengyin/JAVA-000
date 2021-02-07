@@ -12,11 +12,12 @@ public class NonBlocking {
     public static void main(String[] args) {
         NonBlock nonBlock = new NonBlock();
         //调用发起后主线程不会被挂起 , 可以另起线程去得到结果
-        int state = nonBlock.call();
+        nonBlock.call();
         new Thread(() -> {
             while (true){
-                if(state == 1){
+                if(nonBlock.getState() == 1){
                     System.out.println(nonBlock.getRes());
+                    break;
                 }
             }
         }).start();

@@ -71,19 +71,20 @@
     * 非阻塞调用指在不能立刻得到结果之前，该调用不会阻塞当前线程。
     ``` 
     public class NonBlocking {
-        public static void main(String[] args) {
-            NonBlock nonBlock = new NonBlock();
-            //调用发起后主线程不会被挂起 , 可以另起线程去得到结果
-            int state = nonBlock.call();
-            new Thread(() -> {
-                while (true){
-                    if(state == 1){
-                        System.out.println(nonBlock.getRes());
-                    }
-                }
-            }).start();
-            System.out.println("todo other things ...");
-        }
+       public static void main(String[] args) {
+               NonBlock nonBlock = new NonBlock();
+               //调用发起后主线程不会被挂起 , 可以另起线程去得到结果
+               nonBlock.call();
+               new Thread(() -> {
+                   while (true){
+                       if(nonBlock.getState() == 1){
+                           System.out.println(nonBlock.getRes());
+                           break;
+                       }
+                   }
+               }).start();
+               System.out.println("todo other things ...");
+           }
         public static class NonBlock{
             private volatile int state = 0;
             private static ExecutorService executors = Executors.newFixedThreadPool(1);
@@ -403,7 +404,7 @@ Reactor 模型的特点
 2. 可以处理一个或多个输入源
 3. 通过多路复用将请求的事件分发给对应的处理器处理
 
-从高新能的定义回看 Reactor 模型
+从高性能的定义回看 Reactor 模型
 
 * 高新能定义
     * 高并发用户
